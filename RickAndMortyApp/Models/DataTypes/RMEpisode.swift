@@ -8,7 +8,6 @@
 import Foundation
 
 struct RMEpisode: Codable {
-    
     let id: Int
     let name: String
     let air_date: String
