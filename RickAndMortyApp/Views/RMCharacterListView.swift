@@ -37,6 +37,11 @@ final class RMCharacterListView: UIView {
         collectionView.isHidden = true
         collectionView.register(RMCharacterCollectionViewCell.self, 
                                 forCellWithReuseIdentifier: RMCharacterCollectionViewCell.cellIdentificator)
+        collectionView.register(
+            RMFooterLoadingCollectionReusableView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter ,
+            withReuseIdentifier: RMFooterLoadingCollectionReusableView.identifier
+        )
         return collectionView
     }()
     
