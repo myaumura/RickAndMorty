@@ -36,6 +36,7 @@
 		97D1C5B62B162528006649ED /* RMCharacterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D1C5B52B162528006649ED /* RMCharacterCollectionViewCell.swift */; };
 		97D1C5B82B16265F006649ED /* RMCharacterCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D1C5B72B16265F006649ED /* RMCharacterCollectionViewCellViewModel.swift */; };
 		97E48BFF2B1E6BA5005AAC6F /* RMFooterLoadingCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E48BFE2B1E6BA5005AAC6F /* RMFooterLoadingCollectionReusableView.swift */; };
+		97E48C3A2B273A35005AAC6F /* RMImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E48C392B273A35005AAC6F /* RMImageLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +71,7 @@
 		97D1C5B52B162528006649ED /* RMCharacterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMCharacterCollectionViewCell.swift; sourceTree = "<group>"; };
 		97D1C5B72B16265F006649ED /* RMCharacterCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMCharacterCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
 		97E48BFE2B1E6BA5005AAC6F /* RMFooterLoadingCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMFooterLoadingCollectionReusableView.swift; sourceTree = "<group>"; };
+		97E48C392B273A35005AAC6F /* RMImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMImageLoader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +137,7 @@
 		9710FB332B06B0F100B9AD7F /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				97E48C392B273A35005AAC6F /* RMImageLoader.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				97D1C5AE2B13E88D006649ED /* RMGetAllCharactersResponse.swift in Sources */,
 				975B0ECB2B1E18B900FCA1E2 /* RMCharacterDetailViewViewModel.swift in Sources */,
 				9710FB4D2B07C5DA00B9AD7F /* RMSingleLocation.swift in Sources */,
+				97E48C3A2B273A35005AAC6F /* RMImageLoader.swift in Sources */,
 				97D1C5B22B14C5CF006649ED /* RMCharacterListView.swift in Sources */,
 				9710FB4B2B07C55400B9AD7F /* RMOrigin.swift in Sources */,
 				97D1C5B02B14C4AA006649ED /* RMCharacterListViewViewModel .swift in Sources */,
