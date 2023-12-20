@@ -7,11 +7,14 @@
 
 import UIKit
 
-class RMCharacterEpisodeCollectionViewCell: UICollectionViewCell {
+final class RMCharacterEpisodeCollectionViewCell: UICollectionViewCell {
     static let cellIdentifier = "RMCharacterEpisodeCollectionViewCell"
+    
+    // MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        contentView.backgroundColor = .lightGray
     }
     
     required init?(coder: NSCoder) {
@@ -22,7 +25,7 @@ class RMCharacterEpisodeCollectionViewCell: UICollectionViewCell {
          
     }
     
-    public func configure(with viewModels: RMCharacterEpisodeCollectionViewCellViewModel) {
+    public func configure(viewModels: RMCharacterEpisodeCollectionViewCellViewModel) {
         
     }
     

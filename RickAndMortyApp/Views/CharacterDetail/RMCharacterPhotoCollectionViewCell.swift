@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RMCharacterPhotoCollectionViewCell: UICollectionViewCell {
+final class RMCharacterPhotoCollectionViewCell: UICollectionViewCell {
     static let cellIdentifier = "RMCharacterPhotoCollectionViewCell"
     
     private let imageView: UIImageView = {
@@ -17,6 +17,8 @@ class RMCharacterPhotoCollectionViewCell: UICollectionViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
+    
+    // MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,7 +44,16 @@ class RMCharacterPhotoCollectionViewCell: UICollectionViewCell {
         imageView.image = nil
     }
     
-    public func configure(with viewModel: RMCharacterPhotoCollectionViewCellViewModel) {
-        
+    public func configure(viewModel: RMCharacterPhotoCollectionViewCellViewModel) {
+        viewModel.downloadImage { [weak self] result in
+            switch result {
+            case .success(let data):
+                DispatchQueue.main.async {
+                    self?.imageView.image = UIImage(data: data)
+                }
+            case .failure:
+                break
+            }
+        }
     }
 }

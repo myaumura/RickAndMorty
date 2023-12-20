@@ -18,6 +18,7 @@ final class RMCharacterDetailViewViewModel {
     }
     
     public var sections: [SectionType] = []
+
     // MARK: - Init
     
     init(character: RMCharacter) {
@@ -30,14 +31,14 @@ final class RMCharacterDetailViewViewModel {
             .photo(viewModel: .init(with: URL(string: character.image))),
             .information(
                 viewModels: [
-                    .init(title: character.status.text, value: "Status"),
-                    .init(title: character.gender.rawValue, value: "Gender"),
-                    .init(title: character.type, value: "Type"),
-                    .init(title: character.species, value: "Species"),
-                    .init(title: character.origin.name, value: "Origin"),
-                    .init(title: character.location.name, value: "Location"),
-                    .init(title: character.created, value: "Created"),
-                    .init(title: "\(character.episode.count)", value: "Total Episodes"),
+                    .init(value: character.status.text, title: "Status"),
+                    .init(value: character.gender.rawValue, title: "Gender"),
+                    .init(value: character.type, title: "Type"),
+                    .init(value: character.species, title: "Species"),
+                    .init(value: character.origin.name, title: "Origin"),
+                    .init(value: character.location.name, title: "Location"),
+                    .init(value: character.created, title: "Created"),
+                    .init(value: "\(character.episode.count)", title: "Total Episodes"),
                 ]
             ),
             .episodes(
