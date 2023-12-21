@@ -84,10 +84,15 @@ final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
         titleLabel.text = nil
         valueLabel.text = nil
         iconImageView.image = nil
+        iconImageView.tintColor = .label
+        titleLabel.tintColor = .label
     }
     
     public func configure(viewModels: RMCharacterInfoCollectionViewCellViewModel) {
         titleLabel.text = viewModels.title
-        valueLabel.text = viewModels.value
+        titleLabel.textColor = viewModels.tintColor
+        valueLabel.text = viewModels.displayValue
+        iconImageView.image = viewModels.iconImage
+        iconImageView.tintColor = viewModels.tintColor
     }
 }
