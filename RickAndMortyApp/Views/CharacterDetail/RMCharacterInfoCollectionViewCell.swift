@@ -20,6 +20,7 @@ final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
     
     private let valueLabel: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 2
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 22, weight: .light)
         return label
@@ -35,7 +36,7 @@ final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
     private let titleContainerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .systemMint
+        view.backgroundColor = .secondarySystemBackground
         return view
     }()
     
@@ -43,7 +44,7 @@ final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.backgroundColor = .lightGray
+        contentView.backgroundColor = .tertiarySystemBackground
         contentView.layer.cornerRadius = 8
         contentView.layer.masksToBounds = true
         contentView.addSubviews(titleContainerView, valueLabel, iconImageView)
@@ -72,10 +73,10 @@ final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
             iconImageView.heightAnchor.constraint(equalToConstant: 30),
             iconImageView.widthAnchor.constraint(equalToConstant: 30),
             
-            valueLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 36),
+            valueLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
             valueLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 10),
             valueLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            valueLabel.heightAnchor.constraint(equalToConstant: 30)
+            valueLabel.bottomAnchor.constraint(equalTo: titleContainerView.topAnchor)
         ])
     }
     
@@ -88,7 +89,7 @@ final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
         titleLabel.tintColor = .label
     }
     
-    public func configure(viewModels: RMCharacterInfoCollectionViewCellViewModel) {
+    public func configure(with viewModels: RMCharacterInfoCollectionViewCellViewModel) {
         titleLabel.text = viewModels.title
         titleLabel.textColor = viewModels.tintColor
         valueLabel.text = viewModels.displayValue

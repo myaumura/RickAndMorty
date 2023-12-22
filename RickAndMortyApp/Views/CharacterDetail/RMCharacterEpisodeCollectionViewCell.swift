@@ -25,8 +25,13 @@ final class RMCharacterEpisodeCollectionViewCell: UICollectionViewCell {
          
     }
     
-    public func configure(viewModels: RMCharacterEpisodeCollectionViewCellViewModel) {
-        
+    public func configure(with viewModels: RMCharacterEpisodeCollectionViewCellViewModel) {
+        viewModels.registerForData { data in
+            print(data.name)
+            print(data.air_date)
+            print(data.episode)
+        }
+        viewModels.fetchEpisode()
     }
     
     override func prepareForReuse() {

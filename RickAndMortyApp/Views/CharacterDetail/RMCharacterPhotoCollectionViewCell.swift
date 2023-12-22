@@ -44,7 +44,7 @@ final class RMCharacterPhotoCollectionViewCell: UICollectionViewCell {
         imageView.image = nil
     }
     
-    public func configure(viewModel: RMCharacterPhotoCollectionViewCellViewModel) {
+    public func configure(with viewModel: RMCharacterPhotoCollectionViewCellViewModel) {
         viewModel.downloadImage { [weak self] result in
             switch result {
             case .success(let data):

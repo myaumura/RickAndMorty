@@ -83,19 +83,19 @@ extension RMCharacterDetailViewController: UICollectionViewDelegate, UICollectio
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RMCharacterPhotoCollectionViewCell.cellIdentifier, for: indexPath) as? RMCharacterPhotoCollectionViewCell else {
                 fatalError()
             }
-            cell.configure(viewModel: viewModel)
+            cell.configure(with: viewModel)
             return cell
         case .information(let viewModels):
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RMCharacterInfoCollectionViewCell.cellIdentifier, for: indexPath) as? RMCharacterInfoCollectionViewCell else {
                 fatalError()
             }
-            cell.configure(viewModels: viewModels[indexPath.row])
+            cell.configure(with: viewModels[indexPath.row])
             return cell
         case .episodes(let viewModels):
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RMCharacterEpisodeCollectionViewCell.cellIdentifier, for: indexPath) as? RMCharacterEpisodeCollectionViewCell else {
                 fatalError()
             }
-            cell.configure(viewModels: viewModels[indexPath.row])
+            cell.configure(with: viewModels[indexPath.row])
             return cell
         }
     }
