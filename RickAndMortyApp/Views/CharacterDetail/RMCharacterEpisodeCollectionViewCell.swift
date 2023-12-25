@@ -56,9 +56,9 @@ final class RMCharacterEpisodeCollectionViewCell: UICollectionViewCell {
     
     public func configure(with viewModels: RMCharacterEpisodeCollectionViewCellViewModel) {
         viewModels.registerForData { [weak self] data in
+            self?.seasonLabel.text = "Episode " + data.episode
             self?.nameLabel.text = data.name
             self?.airDateLabel.text = "Aired on " + data.air_date
-            self?.seasonLabel.text = "Episode " + data.episode
         }
         viewModels.fetchEpisode()
     }

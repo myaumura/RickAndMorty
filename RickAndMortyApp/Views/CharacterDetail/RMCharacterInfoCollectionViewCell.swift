@@ -23,7 +23,6 @@ final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
         label.numberOfLines = 2
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 22, weight: .light)
-        label.backgroundColor = .systemBlue
         return label
     }()
     
@@ -31,7 +30,6 @@ final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .systemRed
         return imageView
     }()
     
@@ -39,7 +37,8 @@ final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.backgroundColor = .systemMint
+        stackView.alignment = .center
+        stackView.spacing = 10
         return stackView
     }()
     
@@ -104,16 +103,8 @@ private extension RMCharacterInfoCollectionViewCell {
             stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: titleContainerView.topAnchor),
             
-            iconImageView.topAnchor.constraint(equalTo: stackView.topAnchor, constant: 10),
-            iconImageView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 10),
-            iconImageView.trailingAnchor.constraint(equalTo: valueLabel.leadingAnchor, constant: -15),
-            iconImageView.bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: -10),
-            
-            valueLabel.topAnchor.constraint(equalTo: stackView.topAnchor, constant: 10),
-            valueLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 15),
-            valueLabel.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
-            valueLabel.bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: -10),
-            
+            iconImageView.heightAnchor.constraint(equalToConstant: 35),
+            iconImageView.widthAnchor.constraint(equalToConstant: 35)
         ])
     }
 }
