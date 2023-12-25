@@ -23,6 +23,7 @@ final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
         label.numberOfLines = 2
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 22, weight: .light)
+        label.backgroundColor = .systemBlue
         return label
     }()
     
@@ -30,7 +31,16 @@ final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
+        imageView.backgroundColor = .systemRed
         return imageView
+    }()
+    
+    private let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.backgroundColor = .systemMint
+        return stackView
     }()
     
     private let titleContainerView: UIView = {
@@ -47,37 +57,15 @@ final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
         contentView.backgroundColor = .tertiarySystemBackground
         contentView.layer.cornerRadius = 8
         contentView.layer.masksToBounds = true
-        contentView.addSubviews(titleContainerView, valueLabel, iconImageView)
+        contentView.addSubviews(titleContainerView, stackView)
+        stackView.addArrangedSubview(iconImageView)
+        stackView.addArrangedSubview(valueLabel)
         titleContainerView.addSubview(titleLabel)
         setupConstraints()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setupConstraints() {
-        NSLayoutConstraint.activate([
-            titleContainerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            titleContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            titleContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            titleContainerView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.33),
-            
-            titleLabel.topAnchor.constraint(equalTo: titleContainerView.topAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: titleContainerView.leadingAnchor),
-            titleLabel.trailingAnchor.constraint(equalTo: titleContainerView.trailingAnchor),
-            titleLabel.bottomAnchor.constraint(equalTo: titleContainerView.bottomAnchor),
-            
-            iconImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 35),
-            iconImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            iconImageView.heightAnchor.constraint(equalToConstant: 30),
-            iconImageView.widthAnchor.constraint(equalToConstant: 30),
-            
-            valueLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-            valueLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 10),
-            valueLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            valueLabel.bottomAnchor.constraint(equalTo: titleContainerView.topAnchor)
-        ])
     }
     
     override func prepareForReuse() {
@@ -95,5 +83,37 @@ final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
         valueLabel.text = viewModels.displayValue
         iconImageView.image = viewModels.iconImage
         iconImageView.tintColor = viewModels.tintColor
+    }
+}
+
+private extension RMCharacterInfoCollectionViewCell {
+    func setupConstraints() {
+        NSLayoutConstraint.activate([
+            titleContainerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            titleContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            titleContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            titleContainerView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.33),
+            
+            titleLabel.topAnchor.constraint(equalTo: titleContainerView.topAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: titleContainerView.leadingAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: titleContainerView.trailingAnchor),
+            titleLabel.bottomAnchor.constraint(equalTo: titleContainerView.bottomAnchor),
+            
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            stackView.bottomAnchor.constraint(equalTo: titleContainerView.topAnchor),
+            
+            iconImageView.topAnchor.constraint(equalTo: stackView.topAnchor, constant: 10),
+            iconImageView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 10),
+            iconImageView.trailingAnchor.constraint(equalTo: valueLabel.leadingAnchor, constant: -15),
+            iconImageView.bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: -10),
+            
+            valueLabel.topAnchor.constraint(equalTo: stackView.topAnchor, constant: 10),
+            valueLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 15),
+            valueLabel.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
+            valueLabel.bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: -10),
+            
+        ])
     }
 }

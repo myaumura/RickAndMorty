@@ -47,7 +47,25 @@ final class RMCharacterEpisodeCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupConstraints() {
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        seasonLabel.text = nil
+        nameLabel.text = nil
+        airDateLabel.text = nil
+    }
+    
+    public func configure(with viewModels: RMCharacterEpisodeCollectionViewCellViewModel) {
+        viewModels.registerForData { [weak self] data in
+            self?.nameLabel.text = data.name
+            self?.airDateLabel.text = "Aired on " + data.air_date
+            self?.seasonLabel.text = "Episode " + data.episode
+        }
+        viewModels.fetchEpisode()
+    }
+}
+
+private extension RMCharacterEpisodeCollectionViewCell {
+    func setupConstraints() {
         NSLayoutConstraint.activate([
             seasonLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
             seasonLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
@@ -64,21 +82,5 @@ final class RMCharacterEpisodeCollectionViewCell: UICollectionViewCell {
             airDateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             airDateLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.3)
         ])
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        seasonLabel.text = nil
-        nameLabel.text = nil
-        airDateLabel.text = nil
-    }
-    
-    public func configure(with viewModels: RMCharacterEpisodeCollectionViewCellViewModel) {
-        viewModels.registerForData { [weak self] data in
-            self?.nameLabel.text = data.name
-            self?.airDateLabel.text = "Aired on " + data.air_date
-            self?.seasonLabel.text = "Episode " + data.episode
-        }
-        viewModels.fetchEpisode()
     }
 }

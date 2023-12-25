@@ -10,7 +10,6 @@ import UIKit
 final class RMCharacterDetailViewController: UIViewController {
 
     private let viewModel: RMCharacterDetailViewViewModel
-    
     private let detailView: RMCharacterDetailView
     
     // MARK: - Init
@@ -38,21 +37,20 @@ final class RMCharacterDetailViewController: UIViewController {
         detailView.collectionView?.delegate = self
         detailView.collectionView?.dataSource = self
     }
+}
+
+extension RMCharacterDetailViewController {
  
-    @objc
-    private func didTapShare() {
-        
-    }
+    @objc private func didTapShare() { }
     
     private func addConstraits() {
-        
         NSLayoutConstraint.activate([
             detailView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             detailView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             detailView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             detailView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
-    }
+    }   
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
@@ -114,6 +112,5 @@ extension RMCharacterDetailViewController: UICollectionViewDelegate, UICollectio
             navigationController?.pushViewController(vc, animated: true)
            
         }
-        
     }
 }

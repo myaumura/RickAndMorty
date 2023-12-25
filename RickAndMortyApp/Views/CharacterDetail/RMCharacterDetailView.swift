@@ -8,9 +8,8 @@
 import UIKit
 
 class RMCharacterDetailView: UIView {
-
-    public var collectionView: UICollectionView?
     
+    public var collectionView: UICollectionView?
     private let viewModel: RMCharacterDetailViewViewModel
     
     private let spinner: UIActivityIndicatorView = {
@@ -36,8 +35,10 @@ class RMCharacterDetailView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    private func addConstraints() {
+}
+
+private extension RMCharacterDetailView {
+    func addConstraints() {
         guard let collectionView = collectionView else {
             return
         }
@@ -54,8 +55,8 @@ class RMCharacterDetailView: UIView {
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
-
-    private func createCollectionView() -> UICollectionView {
+    
+    func createCollectionView() -> UICollectionView {
         let layout = UICollectionViewCompositionalLayout { sectionIndex, _ in
             return self.createSection(for: sectionIndex)
         }
@@ -70,7 +71,7 @@ class RMCharacterDetailView: UIView {
         return collectionView
     }
     
-    private func createSection(for sectionIndex: Int) -> NSCollectionLayoutSection {
+    func createSection(for sectionIndex: Int) -> NSCollectionLayoutSection {
         let sectionTypes = viewModel.sections
         
         switch sectionTypes[sectionIndex] {

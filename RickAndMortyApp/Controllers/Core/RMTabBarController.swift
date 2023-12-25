@@ -13,8 +13,10 @@ final class RMTabBarController: UITabBarController {
         super.viewDidLoad()
         setupTabs()
     }
-    
-    private func setupTabs() {
+}
+
+private extension RMTabBarController {
+    func setupTabs() {
         
         let charactersVC = RMCharacterController()
         let locationsVC = RMLocationViewController()
@@ -39,8 +41,6 @@ final class RMTabBarController: UITabBarController {
         for nav in [nav1, nav2, nav3, nav4] {
             nav.navigationBar.prefersLargeTitles = true
         }
-        
         setViewControllers([nav1, nav2, nav3, nav4], animated: true)
     }
 }
-

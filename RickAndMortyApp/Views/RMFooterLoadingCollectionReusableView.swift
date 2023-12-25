@@ -28,16 +28,18 @@ final class RMFooterLoadingCollectionReusableView: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func addConstraints() {
+    public func startAnimating() {
+        spinner.startAnimating()
+    }
+}
+
+private extension RMFooterLoadingCollectionReusableView {
+    func addConstraints() {
         NSLayoutConstraint.activate([
             spinner.widthAnchor.constraint(equalToConstant: 100),
             spinner.heightAnchor.constraint(equalToConstant: 100),
             spinner.centerXAnchor.constraint(equalTo: centerXAnchor),
             spinner.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
-    }
-    
-    public func startAnimating() {
-        spinner.startAnimating()
     }
 }
