@@ -14,7 +14,7 @@ final class RMEpisodeViewController: UIViewController, RMEpisodeListViewDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        title = "Episode"
+        title = "Episodes"
         setupView()
     }
     
@@ -32,8 +32,7 @@ final class RMEpisodeViewController: UIViewController, RMEpisodeListViewDelegate
     // MARK: - RMEpisodeListViewDelegate
     
     func rmEpisodeListView(_ characterListView: RMEpisodeListView, didSelectEpisode episode: RMEpisode) {
-        let viewModel = RMEpisodeDetailViewViewModel(episode: episode)
-        let detailVC = RMEpisodeDetailViewController(viewModel: viewModel)
+        let detailVC = RMEpisodeDetailViewController(url: URL(string: episode.url))
         detailVC.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(detailVC, animated: true)
     }

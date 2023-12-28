@@ -1,15 +1,15 @@
 //
-//  RMCharacterCollectionViewCell.swift
+//  RMEpisodeCollectionViewCell.swift
 //  RickAndMortyApp
 //
-//  Created by Kirill Gusev on 28.11.2023.
+//  Created by Kirill Gusev on 28.12.2023.
 //
 
 import UIKit
 
-final class RMCharacterCollectionViewCell: UICollectionViewCell {
+final class RMEpisodeCollectionViewCell: UICollectionViewCell {
     
-    static let cellIdentificator = "RMCharacterCollectionViewCell"
+    static let cellIdentificator = "RMEpisodeCollectionViewCell"
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()

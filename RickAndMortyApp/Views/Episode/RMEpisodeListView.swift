@@ -35,8 +35,8 @@ final class RMEpisodeListView: UIView {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.alpha = 0
         collectionView.isHidden = true
-        collectionView.register(RMCharacterCollectionViewCell.self,
-                                forCellWithReuseIdentifier: RMCharacterCollectionViewCell.cellIdentificator)
+        collectionView.register(RMEpisodeCollectionViewCell.self,
+                                forCellWithReuseIdentifier: RMEpisodeCollectionViewCell.cellIdentificator)
         collectionView.register(
             RMFooterLoadingCollectionReusableView.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter ,
@@ -54,7 +54,7 @@ final class RMEpisodeListView: UIView {
         makeConstraits()
         spinner.startAnimating()
         viewModel.delegate = self
-        viewModel.fetchCharacters()
+        viewModel.fetchAdditionalEpisodes(url: <#T##URL#>)
         setupCollectionView()
     }
     
@@ -83,6 +83,7 @@ final class RMEpisodeListView: UIView {
 }
 
 extension RMEpisodeListView : RMEpisodeListViewViewModelDelegate {
+    
     func didLoadMoreEpisodes(with newIndexPaths: [IndexPath]) {
         collectionView.performBatchUpdates {
             self.collectionView.insertItems(at: newIndexPaths)
@@ -93,7 +94,7 @@ extension RMEpisodeListView : RMEpisodeListViewViewModelDelegate {
         delegate?.rmEpisodeListView(self, didSelectEpisode: episode)
     }
     
-    func didLoadInitialCharacters() {
+    func didLoadInitialEpisodes() {
         spinner.stopAnimating()
         collectionView.isHidden = false
         collectionView.reloadData()
