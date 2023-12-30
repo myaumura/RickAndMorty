@@ -19,37 +19,32 @@ final class RMEpisodeListViewViewModel: NSObject {
     
     private var isLoadingMoreEpisodes = false
     
-    private var episodes: [RMCharacter] = [] {
+    private var episodes: [RMEpisode] = [] {
         didSet {
             for episode in episodes {
-                let viewModel = RMEpisodeCollectionViewCellViewModel(
-                    characterName: episode.name,
-                    characterStatus: episode.status,
-                    characterImageURL: URL(string: episode.image)
-                )
+                let viewModel = RMCharacterEpisodeCollectionViewCellViewModel(episodeDataURL: URL(string: episode.url))
                 if !cellViewModels.contains(viewModel) {
                     cellViewModels.append(viewModel)
                 }
             }
-            
         }
     }
     
-    private var cellViewModels: [RMEpisodeCollectionViewCellViewModel] = []
+    private var cellViewModels: [RMCharacterEpisodeCollectionViewCellViewModel] = []
     
     private var apiInfo: RMGetAllEpisodesResponse.Info? = nil
     
-    public func fetchCharacters() {
-        RMService.shared.execute(.listCharactersRequests, expecting: RMGetAllEpisodesResponse.self) { [weak self] result in
+    public func fetchEpisodes() {
+        RMService.shared.execute(.listEpisodesRequest, expecting: RMGetAllEpisodesResponse.self) { [weak self] result in
             
             switch result {
             case .success(let responseModel):
                 let results = responseModel.results
                 let info = responseModel.info
-                self?.characters = results
+                self?.episodes = results
                 self?.apiInfo = info
                 DispatchQueue.main.async {
-                    self?.delegate?.didLoadInitialCharacters()
+                    self?.delegate?.didLoadInitialEpisodes()
                 }
             case .failure(let error):
                 print(String(describing: error))
@@ -82,7 +77,7 @@ final class RMEpisodeListViewViewModel: NSObject {
                     let info = responseModel.info
                     strongSelf.apiInfo = info
                     
-                    let originalCount = strongSelf.characters.count
+                    let originalCount = strongSelf.episodes.count
                     let newCount = moreResults.count
                     let total = originalCount + newCount
                     let startingIndex = total - newCount
@@ -90,14 +85,14 @@ final class RMEpisodeListViewViewModel: NSObject {
                         return IndexPath(row: $0, section: 0)
                     })
                     
-                    strongSelf.characters.append(contentsOf: moreResults)
+                    strongSelf.episodes.append(contentsOf: moreResults)
                     DispatchQueue.main.async {
-                        strongSelf.delegate?.didLoadMoreCharacters(with: indexPathsToAdd)
-                        strongSelf.isLoadingMoreCharacters = false
+                        strongSelf.delegate?.didLoadMoreEpisodes(with: indexPathsToAdd)
+                        strongSelf.isLoadingMoreEpisodes = false
                     }
                 case .failure(let failure):
                     print(String(describing: failure))
-                    self?.isLoadingMoreCharacters = false
+                    self?.isLoadingMoreEpisodes = false
                 }
             }
     }
@@ -117,7 +112,7 @@ extension RMEpisodeListViewViewModel: UICollectionViewDataSource, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RMEpisodeCollectionViewCell.cellIdentificator, for: indexPath) as? RMEpisodeCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RMCharacterEpisodeCollectionViewCell.cellIdentifier, for: indexPath) as? RMCharacterEpisodeCollectionViewCell else {
             fatalError("Unsupported cell")
         }
         let viewModel = cellViewModels[indexPath.row]
@@ -148,8 +143,8 @@ extension RMEpisodeListViewViewModel: UICollectionViewDataSource, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let bounds = UIScreen.main.bounds
-        let width = (bounds.width - 30) / 2
-        return CGSize(width: width, height: width * 1.5)
+        let width = (bounds.width - 20)
+        return CGSize(width: width, height: width * 0.5)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

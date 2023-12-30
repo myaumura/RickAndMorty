@@ -31,7 +31,6 @@ final class RMCharacterListViewViewModel: NSObject {
                     cellViewModels.append(viewModel)
                 }
             }
-            
         }
     }
     
@@ -40,7 +39,7 @@ final class RMCharacterListViewViewModel: NSObject {
     private var apiInfo: RMGetAllCharactersResponse.Info? = nil
     
     public func fetchCharacters() {
-        RMService.shared.execute(.listCharactersRequests, expecting: RMGetAllCharactersResponse.self) { [weak self] result in
+        RMService.shared.execute(.listCharactersRequest, expecting: RMGetAllCharactersResponse.self) { [weak self] result in
             
             switch result {
             case .success(let responseModel):
@@ -101,7 +100,6 @@ final class RMCharacterListViewViewModel: NSObject {
                 }
             }
     }
-    
     public var shouldShowMoreIndicator: Bool {
         return apiInfo?.next != nil
     }

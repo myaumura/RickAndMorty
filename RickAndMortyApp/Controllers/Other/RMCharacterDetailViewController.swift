@@ -110,7 +110,6 @@ extension RMCharacterDetailViewController: UICollectionViewDelegate, UICollectio
             
             let vc = RMEpisodeDetailViewController(url: URL(string: selection))
             navigationController?.pushViewController(vc, animated: true)
-           
         }
     }
 }

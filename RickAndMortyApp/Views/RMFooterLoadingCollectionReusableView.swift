@@ -17,6 +17,8 @@ final class RMFooterLoadingCollectionReusableView: UICollectionReusableView {
         return spinner
     }()
     
+    // MARK: Init
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .systemBackground

@@ -36,7 +36,6 @@ final class RMCharacterInfoCollectionViewCellViewModel {
                 type == .created {
             return Self.shortDateFormatter.string(from: date)
         }
-        
         return value
     }
     
@@ -119,6 +118,5 @@ final class RMCharacterInfoCollectionViewCellViewModel {
     init(type: `Type`, value: String) {
         self.type = type
         self.value = value
-        
     }
 }
