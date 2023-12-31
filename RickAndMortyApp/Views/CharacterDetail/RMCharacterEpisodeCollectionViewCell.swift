@@ -35,16 +35,19 @@ final class RMCharacterEpisodeCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setupLayer()
         contentView.backgroundColor = .tertiarySystemBackground
-        contentView.layer.cornerRadius = 8
-        contentView.layer.borderWidth = 2
-        contentView.layer.borderColor = UIColor.systemBlue.cgColor
         contentView.addSubviews(seasonLabel, nameLabel, airDateLabel)
         setupConstraints()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupLayer() {
+        contentView.layer.cornerRadius = 8
+        contentView.layer.borderWidth = 2
     }
     
     override func prepareForReuse() {
@@ -61,13 +64,14 @@ final class RMCharacterEpisodeCollectionViewCell: UICollectionViewCell {
             self?.airDateLabel.text = "Aired on " + data.air_date
         }
         viewModels.fetchEpisode()
+        contentView.layer.borderColor = viewModels.borderColor.cgColor
     }
 }
 
 private extension RMCharacterEpisodeCollectionViewCell {
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            seasonLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+            seasonLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
             seasonLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             seasonLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             seasonLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.3),
