@@ -17,12 +17,42 @@ final class RMEpisodeDetailViewViewModel {
     
     public weak var delegate: RMEpisodeDetailViewViewModelDelegate?
     
-    private var dataTuple: (RMEpisode, [RMCharacter])? {
+    private var dataTuple: (episode: RMEpisode, characters: [RMCharacter])? {
         didSet {
             delegate?.didFetchEpisodeDetails()
+            createCellViewModels()
         }
     }
     
+    enum SectionType {
+        case information(viewModels: [RMEpisodeInfoCollectionViewCellViewModel])
+        case characters(viewModels: [RMCharacterCollectionViewCellViewModel])
+    }
+    
+    public private(set) var cellViewModels: [SectionType] = []
+    
+    private func createCellViewModels() {
+        guard let dataTuple = dataTuple else {
+            return
+        }
+        let episode = dataTuple.episode
+        let characters = dataTuple.characters
+        
+        cellViewModels = [
+            .information(viewModels: [
+                .init(title: "Episode Name", value: episode.name),
+                .init(title: "Air Date", value: episode.air_date),
+                .init(title: "Episode", value: episode.episode),
+                .init(title: "Created", value: episode.created)
+            ]),
+            .characters(viewModels: characters.compactMap({ character in
+                return RMCharacterCollectionViewCellViewModel(
+                    characterName: character.name,
+                    characterStatus: character.status,
+                    characterImageURL: URL(string: character.image))
+            }))
+        ]
+    }
     
     // MARK: - Init
     
@@ -71,8 +101,8 @@ final class RMEpisodeDetailViewViewModel {
         }
         group.notify(queue: .main) {
             self.dataTuple = (
-                episode,
-                characters
+                episode: episode,
+                characters: characters
             )
         }
      }
