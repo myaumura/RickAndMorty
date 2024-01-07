@@ -16,6 +16,25 @@ enum RMSettingsOption: CaseIterable {
     case viewSeries
     case viewCode
     
+    var targetURL: URL? {
+        switch self {
+        case .rateApp:
+            return nil
+        case .contactUs:
+            return URL(string: "https://www.linkedin.com/in/myaumura/")
+        case .terms:
+            return nil
+        case .privacy:
+            return nil
+        case .apiReference:
+            return URL(string: "https://rickandmortyapi.com/")
+        case .viewSeries:
+            return nil
+        case .viewCode:
+            return URL(string: "https://github.com/myaumura/RickAndMorty")
+        }
+    }
+    
     var displayTitle: String {
         switch self {
         case .rateApp:
@@ -35,22 +54,41 @@ enum RMSettingsOption: CaseIterable {
         }
     }
     
+    var iconContainerColor: UIColor {
+        switch self {
+        case .rateApp:
+            return .systemBlue
+        case .contactUs:
+            return .systemRed
+        case .terms:
+            return .systemGreen
+        case .privacy:
+            return .systemPink
+        case .apiReference:
+            return .systemOrange
+        case .viewSeries:
+            return .systemPurple
+        case .viewCode:
+            return .systemTeal
+        }
+    }
+    
     var iconImage: UIImage? {
         switch self {
         case .rateApp:
-            return UIImage(systemName: "")
+            return UIImage(systemName: "star")
         case .contactUs:
-            return UIImage(systemName: "")
+            return UIImage(systemName: "paperplane")
         case .terms:
-            return UIImage(systemName: "")
+            return UIImage(systemName: "doc")
         case .privacy:
-            return UIImage(systemName: "")
+            return UIImage(systemName: "lock")
         case .apiReference:
-            return UIImage(systemName: "")
+            return UIImage(systemName: "list.clipboard")
         case .viewSeries:
-            return UIImage(systemName: "")
+            return UIImage(systemName: "tv")
         case .viewCode:
-            return UIImage(systemName: "")
+            return UIImage(systemName: "hammer")
         }
     }
 }
