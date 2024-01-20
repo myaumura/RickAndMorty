@@ -8,13 +8,28 @@
 import UIKit
 
 final class RMLocationViewController: UIViewController {
-
+    
+    private let primaryView = RMLocationView()
+    
+    private let viewModel = RMLocationViewViewModel()   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        view.addSubview(primaryView)
         title = "Locations"
         addSearchButton()
+        setupConstraints()
     }
+    
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            primaryView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            primaryView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            primaryView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            primaryView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+    }   
     
     private func addSearchButton() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(didTapSearch))
