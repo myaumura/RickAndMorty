@@ -13,8 +13,9 @@ final class RMLocationView: UIView {
         didSet {
             spinner.stopAnimating()
             tableView.isHidden = false
+            tableView.reloadData()
             UIView.animate(withDuration: 0.3) {
-                self.tableView.reloadData()
+                self.tableView.alpha = 1
             }
         }
     }
@@ -24,7 +25,7 @@ final class RMLocationView: UIView {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.isHidden = true
         tableView.alpha = 0
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(RMLocationTableViewCell.self, forCellReuseIdentifier: RMLocationTableViewCell.cellIdentifier)
         return tableView
     }()
     
@@ -44,6 +45,12 @@ final class RMLocationView: UIView {
         addSubviews(tableView, spinner)
         spinner.startAnimating()
         setupConstraints()
+        configureTableView()
+    }
+    
+    private func configureTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     
     required init?(coder: NSCoder) {
@@ -68,3 +75,28 @@ final class RMLocationView: UIView {
         self.viewModel = viewModel
     }
 }
+
+extension RMLocationView: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+extension RMLocationView: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cellViewModels = viewModel?.cellViewModels else {
+            fatalError()
+        }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: RMLocationTableViewCell.cellIdentifier, for: indexPath) as? RMLocationTableViewCell else {
+            fatalError()
+        }
+        let cellViewModel = cellViewModels[indexPath.row]
+        cell.textLabel?.text = cellViewModel.name
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel?.cellViewModels.count ?? 0
+    }
+}
+

@@ -9,6 +9,6 @@ import Foundation
 
 @frozen enum RMEndpoint: String, CaseIterable, Hashable {
     case character
-    case locaiton
+    case location
     case episode
 }
