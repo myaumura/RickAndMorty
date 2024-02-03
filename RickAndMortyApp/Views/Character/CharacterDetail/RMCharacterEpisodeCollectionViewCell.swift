@@ -64,7 +64,7 @@ final class RMCharacterEpisodeCollectionViewCell: UICollectionViewCell {
             self?.airDateLabel.text = "Aired on " + data.air_date
         }
         viewModels.fetchEpisode()
-        contentView.layer.borderColor = viewModels.borderColor.cgColor
+        contentView.layer.borderColor = UIColor.blue.cgColor
     }
 }
 

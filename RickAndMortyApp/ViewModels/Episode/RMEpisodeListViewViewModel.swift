@@ -19,12 +19,10 @@ final class RMEpisodeListViewViewModel: NSObject {
     
     private var isLoadingMoreEpisodes = false
     
-    private var borderColors: [UIColor] = [ .systemRed, .systemCyan, .systemBlue, .systemGreen, .systemMint]
-    
     private var episodes: [RMEpisode] = [] {
         didSet {
             for episode in episodes {
-                let viewModel = RMCharacterEpisodeCollectionViewCellViewModel(episodeDataURL: URL(string: episode.url), borderColor: borderColors.randomElement() ?? .systemBlue)
+                let viewModel = RMCharacterEpisodeCollectionViewCellViewModel(episodeDataURL: URL(string: episode.url))
                 if !cellViewModels.contains(viewModel) {
                     cellViewModels.append(viewModel)
                 }

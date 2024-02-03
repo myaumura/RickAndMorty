@@ -51,7 +51,7 @@ final class RMCharacterListView: UIView {
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
         addSubviews(collectionView, spinner)
-        makeConstraits()
+        setupConstraints()
         spinner.startAnimating()
         viewModel.delegate = self
         viewModel.fetchCharacters()
@@ -62,7 +62,7 @@ final class RMCharacterListView: UIView {
         fatalError("Unsupported")
     }
     
-    private func makeConstraits() {
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
             spinner.widthAnchor.constraint(equalToConstant: 100),
             spinner.heightAnchor.constraint(equalToConstant: 100),
@@ -81,6 +81,8 @@ final class RMCharacterListView: UIView {
         collectionView.delegate = viewModel
     }
 }
+
+// MARK: - RMCharacterListViewViewModelDelegate
 
 extension RMCharacterListView : RMCharacterListViewViewModelDelegate {
     func didLoadMoreCharacters(with newIndexPaths: [IndexPath]) {

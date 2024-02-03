@@ -22,6 +22,7 @@ final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.numberOfLines = 2
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
         label.font = .systemFont(ofSize: 22, weight: .light)
         return label
     }()
@@ -36,9 +37,10 @@ final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.layoutMargins = .init(top: 0, left: 10, bottom: 0, right: 10)
+        stackView.isLayoutMarginsRelativeArrangement = true
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.alignment = .center
-        stackView.spacing = 10
         return stackView
     }()
     
@@ -53,14 +55,12 @@ final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.backgroundColor = .tertiarySystemBackground
-        contentView.layer.cornerRadius = 8
-        contentView.layer.masksToBounds = true
         contentView.addSubviews(titleContainerView, stackView)
         stackView.addArrangedSubview(iconImageView)
         stackView.addArrangedSubview(valueLabel)
         titleContainerView.addSubview(titleLabel)
         setupConstraints()
+        configureLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -76,9 +76,17 @@ final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
         titleLabel.tintColor = .label
     }
     
+    private func configureLayout() {
+        contentView.backgroundColor = .tertiarySystemBackground
+        contentView.layer.cornerRadius = 8
+        contentView.layer.borderWidth = 2
+        contentView.layer.borderColor = UIColor.secondarySystemBackground.cgColor
+        contentView.layer.masksToBounds = true
+    }
+    
     public func configure(with viewModels: RMCharacterInfoCollectionViewCellViewModel) {
         titleLabel.text = viewModels.title
-        titleLabel.textColor = viewModels.tintColor
+        titleLabel.textColor = UIColor.black
         valueLabel.text = viewModels.displayValue
         iconImageView.image = viewModels.iconImage
         iconImageView.tintColor = viewModels.tintColor
@@ -88,7 +96,7 @@ final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
 private extension RMCharacterInfoCollectionViewCell {
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            titleContainerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            titleContainerView.topAnchor.constraint(equalTo: contentView.topAnchor),
             titleContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             titleContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             titleContainerView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.33),
@@ -98,13 +106,12 @@ private extension RMCharacterInfoCollectionViewCell {
             titleLabel.trailingAnchor.constraint(equalTo: titleContainerView.trailingAnchor),
             titleLabel.bottomAnchor.constraint(equalTo: titleContainerView.bottomAnchor),
             
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            stackView.topAnchor.constraint(equalTo: titleContainerView.bottomAnchor),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: titleContainerView.topAnchor),
             
-            iconImageView.heightAnchor.constraint(equalToConstant: 35),
-            iconImageView.widthAnchor.constraint(equalToConstant: 35)
+            iconImageView.widthAnchor.constraint(equalToConstant: 35),
         ])
     }
 }

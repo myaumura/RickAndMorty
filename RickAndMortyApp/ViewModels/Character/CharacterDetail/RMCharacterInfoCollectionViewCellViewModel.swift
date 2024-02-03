@@ -64,38 +64,38 @@ final class RMCharacterInfoCollectionViewCellViewModel {
             case .gender:
                 return .systemBlue
             case .type:
-                return .systemCyan
+                return .systemYellow
             case .species:
-                return .systemGray
+                return .systemBlue
             case .origin:
-                return .systemMint
+                return .systemBlue
             case .location:
-                return .systemPink
+                return .systemGreen
             case .created:
-                return .systemTeal
+                return .systemBlue
             case .episodeCount:
-                return .systemBrown
+                return .systemBlue
             }
         }
         
         var iconImage: UIImage? {
             switch self {
             case .status:
-                return UIImage(systemName: "bell")
+                return UIImage(systemName: "heart.fill")
             case .gender:
-                return UIImage(systemName: "bell")
+                return UIImage(systemName: "figure")
             case .type:
-                return UIImage(systemName: "bell")
+                return UIImage(systemName: "star.fill")
             case .species:
-                return UIImage(systemName: "bell")
+                return UIImage(systemName: "person.crop.circle")
             case .origin:
-                return UIImage(systemName: "bell")
+                return UIImage(systemName: "globe")
             case .location:
-                return UIImage(systemName: "bell")
+                return UIImage(systemName: "location.fill")
             case .created:
-                return UIImage(systemName: "bell")
+                return UIImage(systemName: "clock")
             case .episodeCount:
-                return UIImage(systemName: "bell")
+                return UIImage(systemName: "tv")
             }
         }
         
@@ -114,6 +114,8 @@ final class RMCharacterInfoCollectionViewCellViewModel {
             }
         }
     }
+    
+    // MARK: - Init
     
     init(type: `Type`, value: String) {
         self.type = type

@@ -23,9 +23,19 @@ final class RMLocationViewViewModel {
             }
         }
     }
+    
     public private(set) var cellViewModels: [RMLocationTableViewCellViewModel] = []
+    
     private var apiInfo: RMGetAllLocationsResponse.Info?
+    
     weak var delegate: RMLocationViewModelViewDelegate?
+    
+    public func location(at index: Int) -> RMLocation? {
+        guard index < locations.count, index >= 0 else {
+            return nil
+        }
+        return locations[index]
+    }
     
     init() {}
     
