@@ -113,4 +113,3 @@ extension RMLocationView: UITableViewDataSource {
         return viewModel?.cellViewModels.count ?? 0
     }
 }
-
