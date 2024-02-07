@@ -52,10 +52,54 @@ final class RMSearchInputView: UIView {
         self.viewModel = viewModel
     }
     
+    private func createOptionStackView() -> UIStackView {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.alignment = .center
+        addSubview(stackView)
+        
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+        ])
+        
+        return stackView
+    }
+    
     private func createOptionSelectionViews(options: [RMSearchInputViewViewModel.DynamicOption]) {
-        for option in options {
-            print(option.rawValue)
+        
+        let stackView = createOptionStackView()
+        
+        for x in 0..<options.count {
+            let option = options[x]
+            let button = UIButton()
+            
+            button.setAttributedTitle(NSAttributedString(string: option.rawValue, attributes: [ .font: UIFont.systemFont(ofSize: 21, weight: .medium),
+                                                                                                .foregroundColor: UIColor.label ]), for: .normal)
+            
+            
+            button.setTitle(option.rawValue, for: .normal)
+            button.backgroundColor = .purple
+            
+            button.setTitleColor(.label, for: .normal)
+            button.addTarget(self, action: #selector(didTapButton(_:)), for: .touchUpInside)
+            button.tag = x
+            stackView.addArrangedSubview(button)
         }
     }
     
+    @objc private func didTapButton(_ sender: UIButton) {
+        guard let options = viewModel?.options else {
+            return
+        }
+    }
+    
+    public func presentKeyboard() {
+        searchBar.becomeFirstResponder()
+    }
 }

@@ -55,6 +55,11 @@ class RMSearchViewController: UIViewController {
         view.backgroundColor = .systemBackground
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        searchView.presentKeyboard()
+    }
+    
     @objc private func didTapExecuteSearch() {
         // viewModel.executeSearch()
     }

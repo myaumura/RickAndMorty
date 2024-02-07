@@ -35,13 +35,17 @@ final class RMSearchView: UIView {
             searchInputView.topAnchor.constraint(equalTo: topAnchor),
             searchInputView.leadingAnchor.constraint(equalTo: leadingAnchor),
             searchInputView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            searchInputView.heightAnchor.constraint(equalToConstant: 110),
+            searchInputView.heightAnchor.constraint(equalToConstant: viewModel.config.type == .episode ?  55 : 110),
             
             noResultSearchView.heightAnchor.constraint(equalToConstant: 150),
             noResultSearchView.widthAnchor.constraint(equalToConstant: 150),
             noResultSearchView.centerXAnchor.constraint(equalTo: centerXAnchor),
             noResultSearchView.centerYAnchor.constraint(equalTo: centerYAnchor),
         ])
+    }
+    
+    public func presentKeyboard() {
+        searchInputView.presentKeyboard()
     }
 }
 
