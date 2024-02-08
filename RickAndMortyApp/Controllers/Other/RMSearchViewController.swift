@@ -7,8 +7,8 @@
 
 import UIKit
 
-class RMSearchViewController: UIViewController {
-
+final class RMSearchViewController: UIViewController {
+    
     struct Config {
         enum `Type` {
             case character
@@ -42,7 +42,15 @@ class RMSearchViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         view.addSubview(searchView)
         setupConstraints()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search", style: .done, target: self, action: #selector(didTapExecuteSearch))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            title: "Search",
+            style: .done,
+            target: self,
+            action: #selector(
+                didTapExecuteSearch
+            )
+        )
+        searchView.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -71,5 +79,14 @@ class RMSearchViewController: UIViewController {
             searchView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             searchView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+}
+
+extension RMSearchViewController: RMSearchViewDelegate {
+    func rmSearchView(_ searchView: RMSearchView, didSelectOption option: RMSearchInputViewViewModel.DynamicOption) {
+        let vc = RMSearchOptionPickerViewController()
+        vc.sheetPresentationController?.detents = [.medium()]
+        vc.sheetPresentationController?.prefersGrabberVisible = true
+        present(vc, animated: true)
     }
 }

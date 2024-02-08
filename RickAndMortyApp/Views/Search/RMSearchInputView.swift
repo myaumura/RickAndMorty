@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol RMSearchInputViewDelegate: AnyObject {
+    func rmSearchInputView(_ inputView: RMSearchInputView, didSelectOption option: RMSearchInputViewViewModel.DynamicOption)
+}
+
 final class RMSearchInputView: UIView {
+    
+    weak var delegate: RMSearchInputViewDelegate?
     
     private var viewModel: RMSearchInputViewViewModel? {
         didSet {
@@ -29,7 +35,7 @@ final class RMSearchInputView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .red
+        backgroundColor = .systemBackground
         addSubviews(searchBar)
         setupConstraints()
     }
@@ -56,7 +62,10 @@ final class RMSearchInputView: UIView {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
+        stackView.spacing = 6
         stackView.distribution = .fillEqually
+        stackView.layoutMargins = .init(top: 0, left: 10, bottom: 0, right: 10)
+        stackView.isLayoutMarginsRelativeArrangement = true
         stackView.alignment = .center
         addSubview(stackView)
         
@@ -77,26 +86,41 @@ final class RMSearchInputView: UIView {
         
         for x in 0..<options.count {
             let option = options[x]
-            let button = UIButton()
+            let button = createButton(option: option, tag: x)
             
-            button.setAttributedTitle(NSAttributedString(string: option.rawValue, attributes: [ .font: UIFont.systemFont(ofSize: 21, weight: .medium),
-                                                                                                .foregroundColor: UIColor.label ]), for: .normal)
-            
-            
-            button.setTitle(option.rawValue, for: .normal)
-            button.backgroundColor = .purple
-            
-            button.setTitleColor(.label, for: .normal)
-            button.addTarget(self, action: #selector(didTapButton(_:)), for: .touchUpInside)
-            button.tag = x
             stackView.addArrangedSubview(button)
         }
+    }
+    
+    private func createButton(option: RMSearchInputViewViewModel.DynamicOption, tag: Int) -> UIButton {
+        let button = UIButton()
+        button.setAttributedTitle(
+            NSAttributedString(
+                string: option.rawValue,
+                attributes: [
+                    .font: UIFont.systemFont(ofSize: 18, weight: .medium),
+                    .foregroundColor: UIColor.label
+                ]
+            ),
+            for: .normal
+        )
+        
+        button.backgroundColor = .secondarySystemFill
+        
+        button.setTitleColor(.label, for: .normal)
+        button.addTarget(self, action: #selector(didTapButton(_:)), for: .touchUpInside)
+        button.tag = tag
+        button.layer.cornerRadius = 6
+        return button
     }
     
     @objc private func didTapButton(_ sender: UIButton) {
         guard let options = viewModel?.options else {
             return
         }
+        let tag = sender.tag
+        let selected = options[tag]
+        delegate?.rmSearchInputView(self, didSelectOption: selected)
     }
     
     public func presentKeyboard() {
