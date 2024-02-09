@@ -317,14 +317,22 @@
 			path = LocationDetail;
 			sourceTree = "<group>";
 		};
+		9746C3C62B76B9DE00855321 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				970DB83E2B41ED51001A7D2B /* RMSearchViewController.swift */,
+				9746C3C42B7575CF00855321 /* RMSearchOptionPickerViewController.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		975B0EC32B1E17BB00FCA1E2 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				9746C3C62B76B9DE00855321 /* Search */,
 				975B0EC42B1E17E300FCA1E2 /* RMCharacterDetailViewController.swift */,
 				973343E52B38CC4A00B2CDCC /* RMEpisodeDetailViewController.swift */,
-				970DB83E2B41ED51001A7D2B /* RMSearchViewController.swift */,
 				9790C1F82B6E3443007B5D5B /* RMLocationDetailViewController.swift */,
-				9746C3C42B7575CF00855321 /* RMSearchOptionPickerViewController.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
