@@ -10,6 +10,8 @@ import Foundation
 final class RMSearchInputViewViewModel {
     let type: RMSearchViewController.Config.`Type`
     
+    // MARK: - Init
+    
     init(type: RMSearchViewController.Config.`Type`) {
         self.type = type
     }
@@ -30,6 +32,8 @@ final class RMSearchInputViewViewModel {
             }
         }
     }
+    
+    // MARK: - Public
     
     public var hasDynamicOptions: Bool {
         switch self.type {

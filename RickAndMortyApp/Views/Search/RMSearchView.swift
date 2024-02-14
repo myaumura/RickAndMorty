@@ -32,8 +32,8 @@ final class RMSearchView: UIView {
         searchInputView.configure(with: RMSearchInputViewViewModel(type: viewModel.config.type))
         searchInputView.delegate = self
         
-        viewModel.registerOptionChangeBlock { tuple in
-            
+        viewModel.registerOptionChangeBlock { [weak self] tuple in
+            self?.searchInputView.update(with: tuple.0, value: tuple.1)
         }
     }
     
