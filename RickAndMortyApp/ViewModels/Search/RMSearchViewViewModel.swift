@@ -33,9 +33,9 @@ final class RMSearchViewViewModel {
     
     public func executeSearch() {
         
-        searchText = "Rick"
+        print("Search text \(searchText)")
         
-        var queryParameters: [URLQueryItem] = [URLQueryItem(name: "name", value: searchText)]
+        var queryParameters: [URLQueryItem] = [URLQueryItem(name: "name", value: searchText.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed))]
         
         queryParameters.append(contentsOf: optionMap.enumerated().compactMap({ _, element in
             let key: RMSearchInputViewViewModel.DynamicOption = element.key
@@ -45,14 +45,39 @@ final class RMSearchViewViewModel {
         
         let request = RMRequest(endPoint: config.type.endpoint, queryParameters: queryParameters)
         
-        RMService.shared.execute(request, expecting: RMGetAllCharactersResponse.self) { result in
-            switch result {
-            case .success(let model):
-                print("Search result count \(model.results.count)")
-            case .failure:
-                break
+        switch config.type.endpoint {
+        case .character:
+            RMService.shared.execute(request, expecting: RMGetAllCharactersResponse.self) { result in
+                switch result {
+                case .success(let model):
+                    print("Search result count \(model.results.count)")
+                case .failure:
+                    print("Failed to get results")
+                }
+            }
+        case .episode:
+            RMService.shared.execute(request, expecting: RMGetAllEpisodesResponse.self) { result in
+                switch result {
+                case .success(let model):
+                    print("Search result count \(model.results.count)")
+                case .failure:
+                    print("Failed to get results")
+                }
+            }
+        case .location:
+            RMService.shared.execute(request, expecting: RMGetAllLocationsResponse.self) { result in
+                switch result {
+                case .success(let model):
+                    print("Search result count \(model.results.count)")
+                case .failure:
+                    print("Failed to get results")
+                }
             }
         }
+    }
+    
+    private func makeSearchAPICall<T: Codable>(_ type: T.Type) {
+        
     }
     
     public func set(query text: String) {
