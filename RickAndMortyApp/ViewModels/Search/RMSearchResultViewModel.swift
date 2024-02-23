@@ -7,6 +7,8 @@
 
 import Foundation
 
-struct RMSearchResultViewModel {
-    
+enum RMSearchResultViewModel {
+    case characters([RMCharacterCollectionViewCellViewModel])
+    case episodes([RMCharacterEpisodeCollectionViewCellViewModel])
+    case locations([RMLocationTableViewCellViewModel])
 }
