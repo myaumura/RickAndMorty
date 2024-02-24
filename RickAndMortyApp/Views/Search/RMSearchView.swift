@@ -36,17 +36,32 @@ final class RMSearchView: UIView {
         searchInputView.configure(with: RMSearchInputViewViewModel(type: viewModel.config.type))
         searchInputView.delegate = self
         
-        viewModel.registerOptionChangeBlock { [weak self] tuple in
-            self?.searchInputView.update(with: tuple.0, value: tuple.1)
-        }
-        
-        viewModel.registerSearchResultHandler { result in 
-            print(result)
-        }
+        setupHandlers(viewModel: viewModel)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupHandlers(viewModel: RMSearchViewViewModel) {
+        viewModel.registerOptionChangeBlock { [weak self] tuple in
+            self?.searchInputView.update(with: tuple.0, value: tuple.1)
+        }
+        
+        viewModel.registerSearchResultHandler { [weak self] result in
+            DispatchQueue.main.async {
+                self?.resultsView.configure(with: result)
+                self?.noResultSearchView.isHidden = true
+                self?.resultsView.isHidden = false
+            }
+        }
+        
+        viewModel.registerNoSearchResultsHandler {
+            DispatchQueue.main.async { [weak self] in
+                self?.noResultSearchView.isHidden = false
+                self?.resultsView.isHidden = true
+            }
+        }
     }
     
     private func setupConstraints() {
