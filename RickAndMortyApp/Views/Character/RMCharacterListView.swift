@@ -39,7 +39,7 @@ final class RMCharacterListView: UIView {
                                 forCellWithReuseIdentifier: RMCharacterCollectionViewCell.cellIdentificator)
         collectionView.register(
             RMFooterLoadingCollectionReusableView.self,
-            forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter ,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
             withReuseIdentifier: RMFooterLoadingCollectionReusableView.identifier
         )
         return collectionView
