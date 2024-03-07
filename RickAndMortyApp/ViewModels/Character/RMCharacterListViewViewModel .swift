@@ -57,9 +57,7 @@ final class RMCharacterListViewViewModel: NSObject {
     }
     
     public func fetchAdditionalCharacters(url: URL) {
-        guard !isLoadingMoreCharacters else {
-            return
-        }
+        guard !isLoadingMoreCharacters else { return }
         
         isLoadingMoreCharacters = true
         
@@ -71,9 +69,7 @@ final class RMCharacterListViewViewModel: NSObject {
         RMService.shared.execute(
             request,
             expecting: RMGetAllCharactersResponse.self) { [weak self] result in
-                guard let strongSelf = self else {
-                    return
-                }
+                guard let strongSelf = self else { return }
                 
                 switch result {
                 case .success(let responseModel):
@@ -100,6 +96,7 @@ final class RMCharacterListViewViewModel: NSObject {
                 }
             }
     }
+    
     public var shouldShowMoreIndicator: Bool {
         return apiInfo?.next != nil
     }
@@ -144,7 +141,6 @@ extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         let bounds = UIScreen.main.bounds
         let width = (bounds.width - 30) / 2
         return CGSize(width: width, height: width * 1.5)
@@ -166,9 +162,7 @@ extension RMCharacterListViewViewModel: UIScrollViewDelegate {
               !cellViewModels.isEmpty,
               !isLoadingMoreCharacters,
               let nextUrlString = apiInfo?.next,
-              let url = URL(string: nextUrlString) else {
-            return
-        }
+              let url = URL(string: nextUrlString) else { return }
         
         Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { [weak self] t in
             let offset = scrollView.contentOffset.y
