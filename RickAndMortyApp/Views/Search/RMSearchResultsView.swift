@@ -182,3 +182,32 @@ extension RMSearchResultsView: UICollectionViewDelegate, UICollectionViewDataSou
         return CGSize(width: width, height: 100)
     }
 }
+
+extension RMSearchResultsView: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard let viewModel = viewModel else { return }
+//              viewModel.shouldShowMoreIndicator,
+//              !viewModel.cellViewModels.isEmpty,
+//              !viewModel.isLoadingMoreLocations else {
+//            return
+//        }
+//        
+//        Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { [weak self] t in
+//            let offset = scrollView.contentOffset.y
+//            let totalContentHeight = scrollView.contentSize.height
+//            let totalScrollViewFixedHeight = scrollView.frame.size.height
+//            if offset >= (totalContentHeight - totalScrollViewFixedHeight - 120) {
+//                DispatchQueue.main.async {
+//                    self?.showLoadingIndicator()
+//                }
+//                viewModel.fetchAdditionalLocations()
+//            }
+//            t.invalidate()
+//        }
+    }
+    
+    private func showLoadingIndicator() {
+        let footer = RMTableLoadingFooterView(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: 100))
+        tableView.tableFooterView = footer
+    }
+}
